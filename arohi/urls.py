@@ -15,8 +15,9 @@ urlpatterns = [
     path('feed/investor/', views.investor_feed, name='investor_feed',),
     path('feed/investor/<int:page>', views.investor_feed, name='investor_feed',),
 
-    path('auth/login', views.login, name='login'),
-    path('auth/signup', views.sign_up, name='signup'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('signup/', views.sign_up, name='signup'),
 
     path('dashboard/consumer', views.dashboard_consumer, name='consumer_dashboard'),
     path('dashboard/investor', views.dashboard_investor, name='investor_dashboard'),

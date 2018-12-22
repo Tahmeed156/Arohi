@@ -2,6 +2,89 @@
 
 {% block content %}
 
-    <h1>Entrepreneur dashboard</h1>
+    <div style="display: flex; flex-direction: row">
+
+        <h3 style="margin-top: 25px; margin-right: 15px">Total products</h3>
+        <a style="margin-top: 25px; margin-right: 45px" href="#" class="btn btn-primary">
+            5
+        </a>
+
+        <h3 style="margin-top: 25px; margin-right: 15px">Capital investment</h3>
+        <h3 style="margin-top: 25px; margin-right: 45px" href="#" class="btn btn-primary">
+            33,045
+        </h3>
+
+        <h3 style="margin-top: 25px; margin-right: 15px">Rating</h3>
+        <h3 style="margin-top: 25px; margin-right: 45px" href="#" class="btn btn-primary">
+            4.71
+        </h3>
+
+        <h3 style="margin-top: 25px; margin-right: 15px">Reviews</h3>
+        <h3 style="margin-top: 25px" href="#" class="btn btn-primary">
+            87
+        </h3>
+
+    </div>
+
+    <div style="display: flex; flex-direction: row">
+
+        <h3 style="margin-top: 25px; margin-right: 15px">Target sales:</h3>
+        <h3 style="margin-top: 25px; margin-right: 45px" href="#" class="btn btn-primary">
+            925
+        </h3>
+
+        <h3 style="margin-top: 25px; margin-right: 15px">Products sold:</h3>
+        <h3 style="margin-top: 25px; margin-right: 45px" href="#" class="btn btn-primary">
+            325
+        </h3>
+
+    </div>
+
+    <h3 style="margin: 25px 0px">Products (In market)</h3>
+
+    <div class="card-columns">
+    {% for product in products %}
+        <div class="card">
+{#                <img src="..." class="card-img-top" alt="...">#}
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ product.name }}</h5>
+                <p class="card-text">Price: {{ product.price }}</p>
+                <p class="card-text">Category: {{ product.category }}</p>
+                <p class="card-text">Rating: {{ product.rating }}</p>
+                <p class="card-text">Reviews: {{ product.reviews }}</p>
+                <div>
+                    <a href="#" class="btn btn-primary">Update stock</a>
+                    <a href="#" class="btn btn-success">Edit product</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+    <h3 style="margin: 25px 0px">Products (for investment)</h3>
+
+    <div class="card-columns">
+    {% for product in products %}
+        <div class="card">
+{#                <img src="..." class="card-img-top" alt="...">#}
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ product.name }}</h5>
+                <p class="card-text">Funded units: {{ product.funded_units }}</p>
+                <p class="card-text">Cost per unit: {{ product.cost_per_unit }}</p>
+                <p class="card-text">Sold: {{ product.sold }}</p>
+                <p class="card-text">To sell: {{ product.sales_goal }}</p>
+                <p class="card-text">Remaining: {{ product.quantity }}</p>
+                <div>
+                    <a href="#" class="btn btn-primary">Update investor</a>
+                    <a href="#" class="btn btn-success">Ask for investment</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+
 
 {% endblock %}

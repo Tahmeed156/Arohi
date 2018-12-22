@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
 
-</body>
-</html>
+{% block content %}
+
+<form method="post" action="{% url 'arohi:login' %}" style="display: flex; align-items: center; flex-direction: column; margin: 50px 20px">
+
+    {% csrf_token %}
+
+    <div class="form-group" style=" min-width: 300px;">
+        <p style="text-align: center">Username</p>
+        <input class="form-control" type="text" name="username" id="username">
+    </div>
+    <div class="form-group" style=" min-width: 300px;">
+        <p style="text-align: center">Password</p>
+        <input class="form-control" type="password" name="password" id="password">
+    </div>
+
+    <div class="form-group" style="justify-content: space-around; min-width: 300px;
+          display: flex; flex-direction: row">
+        <a class="btn btn-light" href="/admin/">Signup</a>
+        <input type="submit" class="btn btn-primary" value="Login">
+    </div>
+
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <p style="color: red; width: 300px; text-align: center">
+        {{error}}<br>
+    </p>
+</form>
+
+{% endblock %}
