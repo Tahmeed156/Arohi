@@ -11,7 +11,9 @@ urlpatterns = [
     path('contact', views.contact, name='contact_page'),
 
     path('feed/consumer/', views.consumer_feed, name='consumer_feed',),
+    path('feed/consumer/<int:page>', views.consumer_feed, name='consumer_feed',),
     path('feed/investor/', views.investor_feed, name='investor_feed',),
+    path('feed/investor/<int:page>', views.investor_feed, name='investor_feed',),
 
     path('auth/login', views.login, name='login'),
     path('auth/signup', views.sign_up, name='signup'),
