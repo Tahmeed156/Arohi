@@ -1,0 +1,24 @@
+<ul class="pagination justify-content-center" style="text-align: center">
+
+    {# Loop which iterates through all the pages #}
+    {% for p in pag.page_range %}
+        {% if p %}
+            {% if p == page %}
+                {# Denoting the page number if this is the active page #} 
+                <li class="active page-item">
+                    <a class="page-link" href="{% url link page=p%}">{{ p }}</a>
+                </li>
+            {% else %}
+                {# Denoting the page number if NOT the active page #}
+                <li class=" page-item">
+                    <a class="page-link" href="{% url link page=p%}">{{ p }}</a>
+                </li>
+            {% endif %}
+        {% else %}
+            {# If p is None #}
+            <li class="disabled page-item"><a href="#"></a></li>
+        {% endif %}
+    {% endfor %}
+
+</ul>
+

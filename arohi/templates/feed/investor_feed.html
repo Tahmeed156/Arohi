@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <h1 style="width: 100%; margin: 20px; text-align: center">Investor feed</h1>
+
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
+
+        <form class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12" action="{% url 'arohi:consumer_feed' %}"
+                method="POST">
+            <div style="display: flex; justify-content: space-between; flex-wrap: nowrap; flex-direction: row; margin: 10px 0 0">
+                {% csrf_token %}
+
+                <select class="form-control" title="type" id="Type" name="Type">
+                  <option>Loom</option>
+                  <option>Jamdani</option>
+                  <option>Silk</option>
+                  <option>Cane goods</option>
+                  <option>Jute</option>
+                  <option>Potteries</option>
+                </select>
+
+                <div class="input-group mb-3">
+
+                  <input type="text" class="form-control" id="Query" name="Query" placeholder="">
+
+                    <input type="hidden" class="form-control" name="Hidden" value="consumer">
+
+                  <div class="input-group-append">
+                    <input class="btn btn-outline-dark" type="submit" value="Submit">
+                  </div>
+
+                </div>
+            </div>
+
+        </form>
+
+            <a type="button" class="btn col-xl-2 col-lg-2 col-md-4 col-sm-5 col-5" style="margin: 10px; background-color: orange; font-weight: bold" href="{% url 'webapp:add_buyer' %}">
+                Add Buyer
+            </a>
+    </div>
+
+    <div style="margin-top: 40px">
+
+    <p>There</p>
+
+    </div>
+
+{% include 'pagination_macro.html' with pag=pagination page=page link='arohi:consumer_feed'%}
+
+{% endblock %}
+
+{% block styles %}
+
+    a, a:hover {
+        color: black;
+    }
+
+{% endblock %}
+
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% endblock %}

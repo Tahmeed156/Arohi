@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Z-pack</title>
+
+    {% block head %}
+    {% endblock %}
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        {% block styles %}
+        {% endblock %}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" style="margin: 0 15px">
+                    <a class="nav-link" href="">Home</a>
+                </li>
+                <li class="nav-item" style="margin: 0 15px">
+                    <a class="nav-link" href="">Feed</a>
+                </li>
+                <li class="nav-item" style="margin: 0 15px">
+                    <a class="nav-link" href="">Dashboard</a>
+                </li>
+                <li class="nav-item" style="margin: 0 15px">
+                    <a class="nav-link" href="">Contact</a>
+                </li>
+            </ul>
+            <a class="btn btn-danger" href="{% url 'webapp:logout' %}">Logout</a>
+        </div>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {% else %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {% endif %}
+                <strong style="margin: 0 20%; text-align: center">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% block body %}
+
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+{% endblock %}
+
+</body>
+<footer>
+    <p align="right">Sdghackathon</p>
+</footer>
+</html>
