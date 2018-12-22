@@ -21,7 +21,7 @@ def user_login(request):
                 return redirect(next)
             else:
                 messages.success(request, "You have successfully logged in!")
-                return redirect('arohi:consumer_feed')
+                return redirect('arohi:feed')
         else:
             messages.error(request, "Provide valid credentials.")
             return render(request, 'auth/login.html')
@@ -46,6 +46,15 @@ def contact(request):
 
 def sign_up(request):
     return render(request, 'auth/signup.html')
+
+
+@login_required
+def feed(request, page=1):
+    if request.user.username == 'consumer' or request.user.username == 'entrepreneur':
+        return consumer_feed(request, page=page)
+    elif request.user.username == 'investor':
+        return investor_feed(request, page=page)
+
 
 @login_required
 def consumer_feed(request, page=1):
@@ -74,6 +83,16 @@ def investor_feed(request, page=1):
     entrepreneurs = pag.get_page(page)
     return render(request, 'feed/investor_feed.html', {'entrepreneur_list': entrepreneurs, 'pagination': pag,
                                                        'page': page})
+
+
+@login_required
+def dashboard(request):
+    if request.user.username == 'consumer':
+        return dashboard_consumer(request)
+    elif request.user.username == 'investor':
+        return dashboard_investor(request)
+    elif request.user.username == 'entrepreneur':
+        return dashboard_entrepreneur(request)
 
 
 @login_required

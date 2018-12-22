@@ -36,16 +36,22 @@
                     <a class="nav-link" href="{% url 'arohi:home_page' %}">Home</a>
                 </li>
                 <li class="nav-item" style="margin: 0 15px">
-                    <a class="nav-link" href="{% url 'arohi:consumer_feed' %}">Feed</a>
+                    <a class="nav-link" href="{% url 'arohi:feed' %}">Feed</a>
                 </li>
                 <li class="nav-item" style="margin: 0 15px">
-                    <a class="nav-link" href="{% url 'arohi:consumer_dashboard' %}">Dashboard</a>
+                    <a class="nav-link" href="{% url 'arohi:dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item" style="margin: 0 15px">
                     <a class="nav-link" href="">Contact</a>
                 </li>
             </ul>
-            <a class="nav-link" style="color: white; letter-spacing: 1px" href="{% url 'arohi:profile_consumer' %}">Tahmeed Tarek</a>
+            <a class="nav-link" style="color: white; letter-spacing: 1px" href="{% url 'arohi:profile_consumer' %}">
+                {% if user.is_authenticated %}
+                    {{ user.get_username }}
+                {% else %}
+                    Guest
+                {% endif %}
+            </a>
             <a class="btn btn-danger" href="{% url 'arohi:logout' %}">Logout</a>
         </div>
     </nav>
