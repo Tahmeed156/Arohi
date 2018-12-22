@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h1 style="width: 100%; margin: 20px; text-align: center">Investor feed</h1>
+    <h1 style="width: 100%; margin: 20px; text-align: center">Entrepreneurs</h1>
 
     <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
 
@@ -12,12 +12,9 @@
                 {% csrf_token %}
 
                 <select class="form-control" title="type" id="Type" name="Type">
-                  <option>Loom</option>
-                  <option>Jamdani</option>
-                  <option>Silk</option>
-                  <option>Cane goods</option>
-                  <option>Jute</option>
-                  <option>Potteries</option>
+                  <option>Range</option>
+                  <option>Location</option>
+                  <option>Category</option>
                 </select>
 
                 <div class="input-group mb-3">
@@ -39,7 +36,23 @@
 
     <div style="margin-top: 40px">
 
-    <p>There</p>
+    <div class="card-deck">
+        {% for ent in entrepreneur_list %}
+            <div class="card">
+{#                <img src="..." class="card-img-top" alt="...">#}
+                <div class="card-body">
+                    <h5 class="card-title">Name: {{ ent.name }}</h5>
+                    <p class="card-text">Category: {{ ent.category }}</p>
+                    <p class="card-text">Capital: {{ ent.required_money }}</p>
+                    <p class="card-text">Location: {{ ent.address }}</p>
+                    <div>
+                        <a href="#" class="btn btn-success">Invest</a>
+                        <a href="#" class="btn btn-primary">View profile</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
     </div>
 

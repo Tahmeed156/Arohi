@@ -7,6 +7,25 @@ class User(models.Model):
     address = models.CharField(max_length=256)
     gender = models.CharField(max_length=16)
 
+    @staticmethod
+    def generate_fake(count=100):
+        from random import seed, randint
+        import forgery_py
+
+        seed()
+
+        for i in range(count):
+            user = User(
+                name=forgery_py.name.full_name(),
+                type=0,
+                gender='female',
+                address=forgery_py.address.state(),
+            )
+            user.save()
+
+    class Meta:
+        abstract: True
+
 
 class Investor(User):
     region = models.CharField(max_length=64)
@@ -18,6 +37,25 @@ class Investor(User):
 class Entrepreneur(User):
     category = models.CharField(max_length=64)
     required_money = models.IntegerField()
+
+    @staticmethod
+    def generate_fake(count=100):
+        from random import seed, randint
+        import forgery_py
+
+        seed()
+
+        for i in range(count):
+            user = Entrepreneur(
+                # User=User.objects.get(id=randint(1, 50)),
+                name=forgery_py.name.full_name(),
+                type=0,
+                gender='female',
+                address=forgery_py.address.state(),
+                required_money=(randint(5000, 15000)),
+                category='loom'
+            )
+            user.save()
 
 
 class Consumer(User):
