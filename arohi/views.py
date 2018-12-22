@@ -3,8 +3,16 @@ from django.shortcuts import render
 from django.http import Http404
 
 
-# def login(request):
-#     return render(request, 'auth/login.html')
+def home(request):
+    render(request, 'index.html')
+
+
+def login(request):
+    return render(request, 'auth/login.html')
+
+
+def sign_up(request):
+    return render(request, 'auth/signup.html')
 
 
 def consumer_feed(request):
@@ -24,3 +32,34 @@ def investor_feed(request):
 
     return render(request, 'feed/investor_feed.html', {'entrepreneur_list': entrepreneur_list})
 
+
+def dashboard_entrepreneur(request):
+    return render(request, 'dashboard/entrepreneur.html')
+
+
+def dashboard_consumer(request):
+    return render(request, 'dashboard/consumer.html')
+
+
+def dashboard_investor(request):
+    return render(request, 'dashboard/investor.html')
+
+
+def profile_entrepreneur(request):
+    return render(request, 'profiles/entrepreneur.html')
+
+
+def profile_consumer(request):
+    return render(request, 'profiles/consumer.html')
+
+
+def profile_investor(request):
+    return render(request, 'profiles/investor.html')
+
+
+def add_product(request):
+    return render(request, 'product/add.html')
+
+
+def buy_product(request):
+    return render(request, 'product/buy.html')
