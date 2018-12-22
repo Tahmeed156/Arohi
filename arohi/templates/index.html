@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block body %}
+    {% load static %}
+    <img src="{% static "existence-is-pain.png" %}" alt="My Image" >
 
-    <div class="container">
-        <img src="/static/img/existence-is-pain.png" alt="Snow" style="width: 100%;">
-        <div class="centered">Centered</div>
-    </div>
+    <h1>Homepage</h1>
+
 
 {% endblock %}

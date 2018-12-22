@@ -2,6 +2,62 @@
 
 {% block content %}
 
-    <h1>Consumer dashboard</h1>
+    <h3 style="margin-top: 25px">Next delivery date:</h3>
+    <h3 style="margin-bottom: 25px" href="#" class="btn btn-primary">
+        {{ latest_delivery_date }}
+    </h3>
+
+
+    <h3 style="margin: 25px">Bought products</h3>
+
+    <div class="card-deck">
+    {% for order in bought_products %}
+        <div class="card">
+{#                <img src="..." class="card-img-top" alt="...">#}
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ order.Product.name }}</h5>
+                <p class="card-text">Category: {{ order.Product.category }}</p>
+                <p class="card-text">Price: {{ order.Product.price }}</p>
+                <p class="card-text">Quantity: {{ order.quantity }}</p>
+                <p class="card-text">Delivery date: {{ order.expected_delivery_date }}</p>
+                <p class="card-text">Creator:
+                    <a href="#">
+                        {{ order.Product.Producer.name }}
+                    </a>
+                </p>
+                <div>
+                    <a href="#" class="btn btn-danger">Cancel</a>
+                    <a href="#" class="btn btn-warning">More</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+    <h3 style="margin: 25px">Delivered products</h3>
+
+    <div class="card-deck">
+    {% for order in delivered_products %}
+        <div class="card">
+{#                <img src="..." class="card-img-top" alt="...">#}
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ order.Product.name }}</h5>
+                <p class="card-text">Category: {{ order.Product.category }}</p>
+                <p class="card-text">Price: {{ order.Product.price }}</p>
+                <p class="card-text">Quantity: {{ order.quantity }}</p>
+                <p class="card-text">Creator:
+                    <a href="#">
+                        {{ order.Product.Producer.name }}
+                    </a>
+                </p>
+                <div>
+                    <a href="#" class="btn btn-success">Order</a>
+                    <a href="#" class="btn btn-primary">Review</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 
 {% endblock %}

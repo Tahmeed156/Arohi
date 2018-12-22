@@ -2,6 +2,7 @@ from .models import Product, Entrepreneur
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import Http404
+from arohi.models import *
 
 
 def home(request):
@@ -51,11 +52,25 @@ def dashboard_entrepreneur(request):
 
 
 def dashboard_consumer(request):
-    return render(request, 'dashboard/consumer.html')
+    # Hard coded for sample
+    user = Consumer.objects.first()
+    products = Order.objects.filter(Buyer=user).order_by('expected_delivery_date').all()
+    context = {
+        'latest_delivery_date': products.first().expected_delivery_date,
+        'bought_products': products.filter(is_delivered=False).all(),
+        'delivered_products': products.filter(is_delivered=True).all()
+    }
+    return render(request, 'dashboard/consumer.html', context=context)
 
 
 def dashboard_investor(request):
-    return render(request, 'dashboard/investor.html')
+    # Hard coded for sample
+    user = Investor.objects.first()
+    investments = Investment.objects.filter(Investor=user).all()
+    context = {
+        'investments': investments,
+    }
+    return render(request, 'dashboard/investor.html', context=context)
 
 
 def profile_entrepreneur(request):

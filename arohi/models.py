@@ -3,7 +3,7 @@ from django.db import models
 
 class User(models.Model):
     name = models.CharField(max_length=64)
-    type = models.IntegerField()
+    type = models.CharField(max_length=32)
     address = models.CharField(max_length=256)
     gender = models.CharField(max_length=16)
 
@@ -23,19 +23,16 @@ class User(models.Model):
             )
             user.save()
 
-    class Meta:
-        abstract: True
-
 
 class Investor(User):
     region = models.CharField(max_length=64)
-    category = models.CharField(max_length=64)
+    category_preference = models.TextField()
     investment_range_low = models.IntegerField()
     investment_range_hi = models.IntegerField()
 
 
 class Entrepreneur(User):
-    category = models.CharField(max_length=64)
+    product_category = models.CharField(max_length=64)
     required_money = models.IntegerField()
 
     @staticmethod
@@ -53,23 +50,29 @@ class Entrepreneur(User):
                 gender='female',
                 address=forgery_py.address.state(),
                 required_money=(randint(5000, 15000)),
-                category='loom'
+                product_category='silk'
             )
             user.save()
 
 
 class Consumer(User):
-    pass
+    category_preference = models.TextField()
 
 
 class Product(models.Model):
+    Producer = models.ForeignKey(Entrepreneur, on_delete=models.CASCADE)
+    cost_per_unit = models.IntegerField()
+    funded_units = models.IntegerField()
+    sales_goal = models.IntegerField()
+
     name = models.CharField(max_length=64)
-    category = models.CharField(max_length=64)
-    description = models.CharField(max_length=256)
     price = models.IntegerField()
-    # producer = models.ForeignKey(, on_delete=models.CASCADE)
-    rating_sum = models.IntegerField()
-    rating_cnt = models.IntegerField()
+    category = models.CharField(max_length=32)
+    sold = models.IntegerField()
+    quantity = models.IntegerField()
+    discount = models.IntegerField()
+    rating = models.FloatField()
+    reviews = models.IntegerField()
 
     @staticmethod
     def generate_fake(count=100):
@@ -80,20 +83,69 @@ class Product(models.Model):
 
         for i in range(count):
             product = Product(
+                Producer=Entrepreneur.objects.filter(id=randint(100, 130)),
                 name=forgery_py.name.industry(),
-                category=forgery_py.lorem_ipsum.words(randint(3, 5)),
-                description=forgery_py.lorem_ipsum.words(randint(5, 15)),
-                price=(randint(1, 100)),
-                # producer_id=1,
-                rating_sum=(randint(50, 100)),
-                rating_cnt=(randint(15, 30)),
+                sales_goal=(randint(10, 50)/10),
+                cost_per_unit=(randint(10, 50)/10),
+                funded_units=(randint(10, 50)/10),
+                rating=(randint(10, 50)/10),
+                reviews=randint(15, 100),
+                price=randint(300, 5000),
+                sold=randint(15, 50),
+                quantity=randint(50, 100),
+                discount=randint(1, 50),
+                category='loom'
             )
             product.save()
 
 
+class Investment(models.Model):
+    Product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    Investor = models.ForeignKey(Investor, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    date = models.DateField()
+    margin = models.IntegerField()
+    units = models.IntegerField()
+
+    @staticmethod
+    def generate_fake(count=100):
+        from random import seed, randint
+        import forgery_py
+
+        seed()
+
+        for i in range(count):
+            investment = Investment(
+                Investor=Investor.objects.first(),
+                Product_id=randint(1, 30),
+                amount=randint(5000, 15000),
+                margin=randint(5, 40),
+                units=randint(40, 200),
+                date=forgery_py.date.date()
+            )
+            investment.save()
+
+
 class Order(models.Model):
-    buyer = models.ForeignKey(Consumer, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    Buyer = models.ForeignKey(Consumer, on_delete=models.CASCADE)
+    Product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     is_delivered = models.BooleanField()
     expected_delivery_date = models.DateField()
+
+    @staticmethod
+    def generate_fake(count=100):
+        from random import seed, randint
+        import forgery_py
+
+        seed()
+
+        for i in range(count):
+            order = Order(
+                Buyer_id=1,
+                Product_id=randint(1, 20),
+                quantity=randint(10, 50),
+                is_delivered=randint(0, 1),
+                expected_delivery_date=forgery_py.date.date()
+            )
+            order.save()

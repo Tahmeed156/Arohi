@@ -2,6 +2,56 @@
 
 {% block content %}
 
-    <h1>Investor dashboard</h1>
+    <h3 style="margin-top: 25px">Total investments:</h3>
+    <h3 style="margin-bottom: 25px" href="#" class="btn btn-primary">
+        5
+    </h3>
+
+    <h3 style="margin-top: 25px">Capital investment:</h3>
+    <h3 style="margin-bottom: 25px" href="#" class="btn btn-primary">
+        33,045
+    </h3>
+
+    <h3 style="margin-top: 25px">Expected sales:</h3>
+    <h3 style="margin-bottom: 25px" href="#" class="btn btn-primary">
+        748
+    </h3>
+
+    <h3 style="margin-top: 25px">Products sold:</h3>
+    <h3 style="margin-bottom: 25px" href="#" class="btn btn-primary">
+        248
+    </h3>
+
+
+    <h3 style="margin: 25px 0px">Investments</h3>
+
+    <div class="card-columns">
+    {% for inv in investments %}
+        <div class="card">
+{#                <img src="..." class="card-img-top" alt="...">#}
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ inv.Product.name }}</h5>
+                <h5 class="card-text">Amount: {{ inv.amount }}</h5>
+                <h5 class="card-text">Profit margin: {{ inv.margin }}%</h5>
+                <h5 class="card-text">Invested units: {{ inv.units }}</h5>
+                <h5 class="card-text">Sold price: {{ inv.Product.price }}</h5>
+                <h5 class="card-text">Cost per unit: {{ inv.Product.cost_per_unit }}</h5>
+                <h5 class="card-text">Sold: {{ inv.Product.sold }}</h5>
+                <h5 class="card-text">Sales goal: {{ inv.Product.sales_goal }}</h5>
+                <p class="card-title">Creator:
+                    <a href="#">
+                        {{ inv.Product.Producer.name }}
+                    </a>
+                </p>
+                <div>
+                    <a href="#" class="btn btn-danger">Cancel</a>
+                    <a href="#" class="btn btn-warning">More</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
 
 {% endblock %}
