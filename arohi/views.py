@@ -1,4 +1,5 @@
 from .models import Product, Entrepreneur
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import Http404
 
@@ -19,22 +20,30 @@ def sign_up(request):
     return render(request, 'auth/signup.html')
 
 
-def consumer_feed(request):
+def consumer_feed(request, page=1):
     try:
         product_list = Product.objects.all()
     except Product.DoesNotExist:
         raise Http404("Products does not exist.")
 
-    return render(request, 'feed/consumer_feed.html', {'product_list': product_list})
+    # Shows 20 buyers per page
+    pag = Paginator(product_list, 20)
+    products = pag.get_page(page)
+    return render(request, 'feed/consumer_feed.html', {'product_list': products, 'pagination': pag,
+                                                       'page': page})
 
 
-def investor_feed(request):
+def investor_feed(request, page=1):
     try:
         entrepreneur_list = Entrepreneur.objects.all()
     except Entrepreneur.DoesNotExist:
         raise Http404("Entrepreneurs don't exist in the database.")
 
-    return render(request, 'feed/investor_feed.html', {'entrepreneur_list': entrepreneur_list})
+    # Shows 20 buyers per page
+    pag = Paginator(entrepreneur_list, 20)
+    entrepreneurs = pag.get_page(page)
+    return render(request, 'feed/investor_feed.html', {'entrepreneur_list': entrepreneurs, 'pagination': pag,
+                                                       'page': page})
 
 
 def dashboard_entrepreneur(request):
