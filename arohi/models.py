@@ -90,3 +90,10 @@ class Product(models.Model):
             )
             product.save()
 
+
+class Order(models.Model):
+    buyer = models.ForeignKey(Consumer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    is_delivered = models.BooleanField()
+    expected_delivery_date = models.DateField()
