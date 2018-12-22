@@ -35,9 +35,6 @@
 
         </form>
 
-            <a type="button" class="btn col-xl-2 col-lg-2 col-md-4 col-sm-5 col-5" style="margin: 10px; background-color: orange; font-weight: bold" href="{% url 'webapp:add_buyer' %}">
-                Add Buyer
-            </a>
     </div>
 
     <div style="margin-top: 40px">
@@ -46,7 +43,7 @@
 
     </div>
 
-{% include 'pagination_macro.html' with pag=pagination page=page link='arohi:consumer_feed'%}
+{% include 'pagination_macro.html' with pag=pagination page=page link='arohi:investor_feed'%}
 
 {% endblock %}
 
