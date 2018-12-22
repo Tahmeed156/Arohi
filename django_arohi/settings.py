@@ -25,7 +25,7 @@ SECRET_KEY = 'p(t=!czu@z!p(7awv-(465a$u_aqhaxl#khsdjnekvr%=+1orw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'arohi',
 ]
 
@@ -77,12 +76,17 @@ WSGI_APPLICATION = 'django_arohi.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
+    # Cofiguration used when you're running a mysql in your system
+
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'arohi',
+        'USER': 'root',
+        'PASSWORD': 'leavemealone',
+        'HOST': 'localhost',
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
