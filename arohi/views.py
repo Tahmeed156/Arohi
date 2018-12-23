@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import Http404
 from arohi.models import *
-import json
+from django import forms
+from django.http import HttpResponse
 
 
 def user_login(request):
@@ -151,3 +152,20 @@ def add_product(request):
 @login_required
 def buy_product(request):
     return render(request, 'product/buy.html')
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=64, required=True)
+    email = forms.EmailField(max_length=64, required=True)
+    messages = forms.CharField(widget=forms.Textarea)
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            return HttpResponse("Thanks for contacting us!")
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
